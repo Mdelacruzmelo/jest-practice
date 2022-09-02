@@ -31,5 +31,5 @@ test('city database has Vienna', () => {
 });
 
 test('city database has San Juan', () => {
-    expect(isCity('San Juan')).toBeTruthy();
+    expect(isCity('San Juan')).not.toBeNull();
 });
