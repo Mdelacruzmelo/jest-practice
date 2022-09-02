@@ -2,6 +2,12 @@ import axios from 'axios';
 
 const mockCallback = jest.fn(x => 42 + x);
 
+function forEach(items, callback) {
+    for (let index = 0; index < items.length; index++) {
+        callback(items[index]);
+    }
+}
+
 forEach([0, 1], mockCallback);
 
 // The mock function is called twice
@@ -19,25 +25,25 @@ expect(mockCallback.mock.results[0].value).toBe(42);
 // PROPERTY: .mock
 const myMock1 = jest.fn();
 const a = new myMock1();
-console.log(myMock1.mock.instances);
+// console.log(myMock1.mock.instances);
 // > [ <a> ]
 
 const myMock2 = jest.fn();
 const b = {};
 const bound = myMock2.bind(b);
 bound();
-console.log(myMock2.mock.contexts);
+// console.log(myMock2.mock.contexts);
 // > [ <b> ]
 
 //////////////// mockReturnValueOnce //////////////// /
 
 const myMock = jest.fn();
-console.log(myMock());
+// console.log(myMock());
 // > undefined
 
 myMock.mockReturnValueOnce(10).mockReturnValueOnce('x').mockReturnValue(true);
 
-console.log(myMock(), myMock(), myMock(), myMock());
+// console.log(myMock(), myMock(), myMock(), myMock());
 // > 10, 'x', true, true
 
 const filterTestFn = jest.fn();
@@ -48,10 +54,10 @@ filterTestFn.mockReturnValueOnce(true).mockReturnValueOnce(false);
 
 const result = [11, 12].filter(num => filterTestFn(num));
 
-console.log(result);
+// console.log(result);
 // > [11]
-console.log(filterTestFn.mock.calls[0][0]); // 11
-console.log(filterTestFn.mock.calls[1][0]); // 12
+// console.log(filterTestFn.mock.calls[0][0]); // 11
+// console.log(filterTestFn.mock.calls[1][0]); // 12
 
 ///////////// MOCKEAR AXIOS /////////////
 
@@ -80,7 +86,7 @@ export const bar = () => 'bar';
 export default () => 'baz';
 
 // test.js
-jest.mock('../foo-bar-baz', () => {
+/* jest.mock('../foo-bar-baz', () => {
     const originalModule = jest.requireActual('../foo-bar-baz');
 
     //Mock the default export and named export 'foo'
@@ -99,7 +105,7 @@ test('should do a partial mock', () => {
 
     expect(foo).toBe('mocked foo');
     expect(bar()).toBe('bar');
-});
+}); */
 
 // EXTEND FOR OWN FUNCTION TEST, TAMBIÉN MIRAR EL REPO jest-extended
 
